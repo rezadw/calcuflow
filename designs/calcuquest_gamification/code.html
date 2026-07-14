@@ -1,0 +1,480 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CalcuMap - Quests</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#c8c4d4",
+                      "on-primary-fixed": "#140067",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#5951b4",
+                      "on-secondary-fixed": "#002117",
+                      "primary-container": "#7067cc",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#926f00",
+                      "inverse-on-surface": "#f3eff8",
+                      "tertiary-fixed-dim": "#efc04c",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "tertiary": "#745800",
+                      "on-primary": "#ffffff",
+                      "surface-container-low": "#f6f2fb",
+                      "surface-container": "#f0ecf5",
+                      "secondary-fixed": "#8af7cf",
+                      "background": "#fcf8ff",
+                      "tertiary-fixed": "#ffdf98",
+                      "on-surface": "#1c1b21",
+                      "surface-container-high": "#ebe6f0",
+                      "primary-fixed": "#e4dfff",
+                      "on-primary-container": "#fffbff",
+                      "surface": "#fcf8ff",
+                      "on-primary-fixed-variant": "#41379b",
+                      "on-background": "#1c1b21",
+                      "on-secondary-fixed-variant": "#00513d",
+                      "primary": "#574eb1",
+                      "surface-variant": "#e5e1ea",
+                      "primary-fixed-dim": "#c5c0ff",
+                      "on-tertiary-fixed-variant": "#5a4300",
+                      "on-secondary": "#ffffff",
+                      "outline": "#787583",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-surface": "#313036",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed": "#251a00",
+                      "on-secondary-container": "#007257",
+                      "surface-dim": "#dcd8e1",
+                      "surface-container-highest": "#e5e1ea",
+                      "secondary": "#006c52",
+                      "secondary-container": "#8af7cf",
+                      "surface-bright": "#fcf8ff",
+                      "inverse-primary": "#c5c0ff",
+                      "on-surface-variant": "#474552",
+                      "secondary-fixed-dim": "#6edab4",
+                      "on-tertiary-container": "#fffbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "md": "24px",
+                      "max-width": "1280px",
+                      "margin-mobile": "16px",
+                      "lg": "40px",
+                      "base": "8px",
+                      "margin-desktop": "48px",
+                      "sm": "12px",
+                      "gutter": "24px",
+                      "xl": "64px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .path-line {
+            position: absolute;
+            z-index: 0;
+            background-color: theme('colors.primary-fixed-dim');
+            /* Fallback thickness, handled in JS mainly for diagonal calculations */
+            height: 4px;
+        }
+        .path-line.completed {
+            background-color: theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden lg:flex flex-col h-full py-md border-r border-outline-variant/10 bg-surface-container dark:bg-surface-container-high h-screen w-64 fixed left-0 top-0 z-40">
+<div class="px-md mb-lg flex items-center gap-sm">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-primary font-headline-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">functions</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">CalcuMap</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Precision Learning</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-sm flex flex-col gap-xs">
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">CalcuLearn</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">CalcuSim</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">AI Tutor</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 bg-primary-container dark:bg-primary-container text-on-primary-container rounded-xl mx-2 my-1 scale-95 transition-transform shadow-[0_4px_12px_rgba(87,78,177,0.15)]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-md text-label-md font-bold">Quests</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+</div>
+<div class="px-md mt-auto pt-md flex flex-col gap-sm">
+<button class="w-full h-12 bg-primary text-on-primary rounded-xl font-label-md text-label-md shadow-sm hover:shadow-md transition-shadow flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">calculate</span> Open Solver
+            </button>
+<div class="flex flex-col gap-xs mt-4">
+<a class="flex items-center gap-sm px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-label-sm text-label-sm">Support</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="font-label-sm text-label-sm">Logout</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- TopNavBar (Mobile) -->
+<nav class="lg:hidden sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile py-4 bg-surface dark:bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">functions</span>
+</div>
+<h1 class="font-headline-md text-headline-md-mobile text-primary font-bold">CalcuMap</h1>
+</div>
+<div class="flex items-center gap-md text-primary">
+<span class="material-symbols-outlined cursor-pointer">notifications</span>
+<span class="material-symbols-outlined cursor-pointer">settings</span>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 relative min-h-screen flex flex-col lg:flex-row pb-[80px] lg:pb-0">
+<!-- Path Section (Left side on desktop, top on mobile) -->
+<section class="flex-1 p-margin-mobile lg:p-margin-desktop relative overflow-y-auto overflow-x-hidden min-h-[600px]" id="path-container">
+<div class="max-w-3xl mx-auto relative pt-lg pb-xl">
+<!-- Path Header -->
+<div class="mb-xl text-center lg:text-left">
+<h2 class="font-display-lg text-headline-lg-mobile lg:text-display-lg text-primary mb-2">Calculus I: Limits</h2>
+<p class="font-body-lg text-body-md lg:text-body-lg text-on-surface-variant">Embark on your journey to master rates of change.</p>
+</div>
+<!-- Path Nodes Container -->
+<div class="relative w-full flex flex-col items-center gap-xl py-lg" id="nodes-wrapper">
+<!-- SVG lines will be drawn here by JS to connect nodes -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" id="path-lines-svg" style="z-index: 0;"></svg>
+<!-- Node 1: Completed -->
+<div class="relative z-10 flex flex-col items-center group cursor-pointer translate-x-[-40px] lg:translate-x-[-80px] path-node" data-status="completed">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-[0_8px_24px_rgba(87,78,177,0.3)] ring-4 ring-primary-fixed group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-on-primary text-[32px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="absolute top-full mt-2 w-32 text-center bg-surface p-2 rounded-lg border border-primary/10 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md text-on-surface block">Intro to Limits</span>
+<span class="font-label-sm text-label-sm text-primary">100/100 pts</span>
+</div>
+</div>
+<!-- Node 2: Completed -->
+<div class="relative z-10 flex flex-col items-center group cursor-pointer translate-x-[30px] lg:translate-x-[60px] path-node" data-status="completed">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-[0_8px_24px_rgba(87,78,177,0.3)] ring-4 ring-primary-fixed group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-on-primary text-[32px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="absolute top-full mt-2 w-32 text-center bg-surface p-2 rounded-lg border border-primary/10 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md text-on-surface block">One-Sided Limits</span>
+<span class="font-label-sm text-label-sm text-primary">100/100 pts</span>
+</div>
+</div>
+<!-- Node 3: Current -->
+<div class="relative z-10 flex flex-col items-center group cursor-pointer translate-x-[-20px] lg:translate-x-[-40px] path-node" data-status="current">
+<div class="relative w-20 h-20 rounded-full bg-secondary flex items-center justify-center shadow-[0_8px_24px_rgba(0,108,82,0.4)] ring-4 ring-secondary-container animate-[pulse_3s_ease-in-out_infinite] group-hover:scale-105 transition-transform">
+<!-- Pulse ring -->
+<div class="absolute inset-0 rounded-full bg-secondary opacity-30 animate-ping"></div>
+<span class="material-symbols-outlined text-on-secondary text-[36px]">play_arrow</span>
+</div>
+<div class="mt-4 text-center">
+<span class="font-headline-md text-headline-md text-secondary block">Infinite Limits</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">In Progress • 40%</span>
+</div>
+</div>
+<!-- Node 4: Locked -->
+<div class="relative z-10 flex flex-col items-center group cursor-not-allowed translate-x-[40px] lg:translate-x-[80px] path-node" data-status="locked">
+<div class="w-14 h-14 rounded-full bg-surface-variant flex items-center justify-center border-2 border-outline-variant text-outline">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+</div>
+<span class="mt-2 font-label-md text-label-md text-on-surface-variant opacity-70">Limit Laws</span>
+</div>
+<!-- Node 5: Locked -->
+<div class="relative z-10 flex flex-col items-center group cursor-not-allowed translate-x-[-30px] lg:translate-x-[-60px] path-node" data-status="locked">
+<div class="w-14 h-14 rounded-full bg-surface-variant flex items-center justify-center border-2 border-outline-variant text-outline">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+</div>
+<span class="mt-2 font-label-md text-label-md text-on-surface-variant opacity-70">Squeeze Theorem</span>
+</div>
+<!-- Node 6: Boss/Final -->
+<div class="relative z-10 flex flex-col items-center group cursor-not-allowed translate-x-[0px] path-node mt-md" data-status="locked">
+<div class="w-20 h-20 rounded-[20px] bg-surface-container-highest flex items-center justify-center border-2 border-outline-variant text-outline rotate-45">
+<span class="material-symbols-outlined text-[32px] -rotate-45">castle</span>
+</div>
+<span class="mt-4 font-headline-md text-headline-md text-on-surface-variant opacity-70">Limits Mastery Test</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Sidebar Section (Right side on desktop, bottom on mobile) -->
+<aside class="w-full lg:w-80 bg-surface border-t lg:border-t-0 lg:border-l border-primary/10 p-margin-mobile lg:p-margin-desktop flex flex-col gap-lg z-20">
+<!-- User Stats -->
+<div class="bg-surface rounded-2xl border border-primary/10 p-6 shadow-sm flex flex-col items-center text-center">
+<img class="w-24 h-24 rounded-full border-4 border-surface-container shadow-sm object-cover mb-4" data-alt="A clean, minimalist 3D render of an academic student avatar wearing casual modern clothing, soft cinematic lighting, isolated on a solid pristine white background, conveying intelligence and focus. High definition, bright light-mode aesthetic, simple geometric shapes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ8ADFhMRfQbJaE6ye4rQwKcVkzIpREDO37rXDHGSOlCiLzjgZzyNQUr5dO08F2y1rQ7coxHz2ujMFbthqEC7GurJjLXbgGkRmDZ9JKyGvMXfCmBqegCDTMKMzs25hRbfAsMB8kNx1n0a-cRyrkT-hnQ5HAUMz_28J2zL-K2eL5ChoshAJclV7LO5fzVQhSw7T1HRPaJJljYhL-O1aeUj5EmntCu4i_vw0vr7zAbvQ8Cu8zo1InoQyZ_uMCDZexGNmGS2h36Q6_tND">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Alex Chen</h3>
+<p class="font-label-md text-label-md text-primary mb-4">Calculus Initiate</p>
+<div class="w-full bg-surface-container-low rounded-xl p-4 flex justify-between items-center">
+<div class="text-left">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wider">Total XP</span>
+<span class="font-display-lg text-headline-lg-mobile text-primary font-bold">1,240</span>
+</div>
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<!-- Badges Grid -->
+<div>
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">military_tech</span> Earned Badges
+                </h4>
+<div class="grid grid-cols-2 gap-4">
+<!-- Badge 1 -->
+<div class="bg-surface border border-primary/10 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-[0_8px_24px_rgba(38,33,92,0.08)] transition-shadow group">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container flex items-center justify-center text-tertiary mb-3 group-hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">speed</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Speed Demon</span>
+<span class="text-[10px] text-on-surface-variant mt-1">Under 5 mins</span>
+</div>
+<!-- Badge 2 -->
+<div class="bg-surface border border-primary/10 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-[0_8px_24px_rgba(38,33,92,0.08)] transition-shadow group">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-primary mb-3 group-hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Flawless</span>
+<span class="text-[10px] text-on-surface-variant mt-1">100% Accuracy</span>
+</div>
+<!-- Badge 3 -->
+<div class="bg-surface border border-primary/10 rounded-xl p-4 flex flex-col items-center text-center hover:shadow-[0_8px_24px_rgba(38,33,92,0.08)] transition-shadow group">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-secondary mb-3 group-hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timeline</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Master of Limits</span>
+<span class="text-[10px] text-on-surface-variant mt-1">Module 1</span>
+</div>
+<!-- Badge Empty -->
+<div class="bg-surface-container-low border border-dashed border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center text-center opacity-50">
+<div class="w-12 h-12 rounded-xl border-2 border-outline-variant text-outline flex items-center justify-center mb-3">
+<span class="material-symbols-outlined">lock</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Locked</span>
+</div>
+</div>
+</div>
+<!-- Current Quest Card -->
+<div class="bg-primary text-on-primary rounded-2xl p-6 relative overflow-hidden mt-auto">
+<!-- Decorative background elements -->
+<div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 rounded-full bg-white opacity-10"></div>
+<div class="absolute bottom-0 left-0 -ml-4 -mb-4 w-16 h-16 rounded-full bg-white opacity-10"></div>
+<div class="relative z-10">
+<span class="inline-block px-2 py-1 bg-on-primary/20 rounded text-[10px] font-bold tracking-wider uppercase mb-3">Active Quest</span>
+<h4 class="font-headline-md text-headline-md mb-2">Conquer Infinity</h4>
+<p class="font-body-md text-body-md text-primary-fixed opacity-90 mb-4">Complete the Infinite Limits module to unlock the next region.</p>
+<div class="w-full bg-on-primary/20 rounded-full h-2 mb-2">
+<div class="bg-secondary-fixed h-2 rounded-full w-[40%]"></div>
+</div>
+<div class="flex justify-between text-[12px] font-semibold text-primary-fixed">
+<span>Progress</span>
+<span>40%</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-surface-container-lowest shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant w-16 h-14" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant w-16 h-14" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-label-sm text-label-sm">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant w-16 h-14" href="#">
+<span class="material-symbols-outlined mb-1">forum</span>
+<span class="font-label-sm text-label-sm">AI Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-primary-fixed rounded-xl w-16 h-14 scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple script to draw SVG lines connecting the nodes
+        function drawPathLines() {
+            const svg = document.getElementById('path-lines-svg');
+            const nodes = document.querySelectorAll('.path-node');
+            const wrapper = document.getElementById('nodes-wrapper');
+            
+            if (!svg || nodes.length < 2) return;
+            
+            // Clear existing lines
+            svg.innerHTML = '';
+            
+            const wrapperRect = wrapper.getBoundingClientRect();
+            
+            for (let i = 0; i < nodes.length - 1; i++) {
+                const node1 = nodes[i];
+                const node2 = nodes[i + 1];
+                
+                // Get the central element (the circle) within the node container
+                const circle1 = node1.querySelector('div');
+                const circle2 = node2.querySelector('div');
+                
+                const rect1 = circle1.getBoundingClientRect();
+                const rect2 = circle2.getBoundingClientRect();
+                
+                // Calculate center points relative to the wrapper
+                const x1 = (rect1.left + rect1.width / 2) - wrapperRect.left;
+                const y1 = (rect1.top + rect1.height / 2) - wrapperRect.top;
+                const x2 = (rect2.left + rect2.width / 2) - wrapperRect.left;
+                const y2 = (rect2.top + rect2.height / 2) - wrapperRect.top;
+                
+                // Determine line color based on node status
+                // If both are completed, line is completed. If 1 is complete and 2 is current, line is completed.
+                const status1 = node1.dataset.status;
+                const status2 = node2.dataset.status;
+                let strokeColor = '#c5c0ff'; // primary-fixed-dim
+                
+                if (status1 === 'completed' && (status2 === 'completed' || status2 === 'current')) {
+                    strokeColor = '#574eb1'; // primary
+                }
+                
+                // Create SVG path (curved)
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                
+                // Control points for a smooth vertical curve
+                const cpx1 = x1;
+                const cpy1 = y1 + (y2 - y1) / 2;
+                const cpx2 = x2;
+                const cpy2 = y1 + (y2 - y1) / 2;
+                
+                path.setAttribute('d', `M ${x1} ${y1} C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${x2} ${y2}`);
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke', strokeColor);
+                path.setAttribute('stroke-width', '4');
+                path.setAttribute('stroke-dasharray', strokeColor === '#c5c0ff' ? '8,8' : 'none');
+                
+                svg.appendChild(path);
+            }
+        }
+
+        // Draw initially and on resize
+        window.addEventListener('load', drawPathLines);
+        window.addEventListener('resize', drawPathLines);
+    </script>
+</body></html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CalcuSim - Graph Simulation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#c8c4d4",
+                      "on-primary-fixed": "#140067",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#5951b4",
+                      "on-secondary-fixed": "#002117",
+                      "primary-container": "#7067cc",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#926f00",
+                      "inverse-on-surface": "#f3eff8",
+                      "tertiary-fixed-dim": "#efc04c",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "tertiary": "#745800",
+                      "on-primary": "#ffffff",
+                      "surface-container-low": "#f6f2fb",
+                      "surface-container": "#f0ecf5",
+                      "secondary-fixed": "#8af7cf",
+                      "background": "#fcf8ff",
+                      "tertiary-fixed": "#ffdf98",
+                      "on-surface": "#1c1b21",
+                      "surface-container-high": "#ebe6f0",
+                      "primary-fixed": "#e4dfff",
+                      "on-primary-container": "#fffbff",
+                      "surface": "#fcf8ff",
+                      "on-primary-fixed-variant": "#41379b",
+                      "on-background": "#1c1b21",
+                      "on-secondary-fixed-variant": "#00513d",
+                      "primary": "#574eb1",
+                      "surface-variant": "#e5e1ea",
+                      "primary-fixed-dim": "#c5c0ff",
+                      "on-tertiary-fixed-variant": "#5a4300",
+                      "on-secondary": "#ffffff",
+                      "outline": "#787583",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-surface": "#313036",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed": "#251a00",
+                      "on-secondary-container": "#007257",
+                      "surface-dim": "#dcd8e1",
+                      "surface-container-highest": "#e5e1ea",
+                      "secondary": "#006c52",
+                      "secondary-container": "#8af7cf",
+                      "surface-bright": "#fcf8ff",
+                      "inverse-primary": "#c5c0ff",
+                      "on-surface-variant": "#474552",
+                      "secondary-fixed-dim": "#6edab4",
+                      "on-tertiary-container": "#fffbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "md": "24px",
+                      "max-width": "1280px",
+                      "margin-mobile": "16px",
+                      "lg": "40px",
+                      "base": "8px",
+                      "margin-desktop": "48px",
+                      "sm": "12px",
+                      "gutter": "24px",
+                      "xl": "64px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .custom-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #5DCAA5;
+            cursor: pointer;
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .custom-range::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #5DCAA5;
+            cursor: pointer;
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #5DCAA5;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #5DCAA5;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row font-body-md text-body-md">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden lg:flex flex-col h-full py-md border-r border-outline-variant/10 bg-surface-container dark:bg-surface-container-high h-screen w-64 fixed left-0 top-0 z-40">
+<div class="px-md mb-lg">
+<h1 class="font-headline-md text-headline-md text-primary">CalcuMap</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Precision Learning</p>
+</div>
+<div class="flex-1 overflow-y-auto">
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 p-sm font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 p-sm font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>CalcuLearn</span>
+</a>
+<a class="flex items-center gap-sm bg-primary-container dark:bg-primary-container text-on-primary-container rounded-xl mx-2 my-1 p-sm font-label-md text-label-md scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span>CalcuSim</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 p-sm font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span>AI Tutor</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 p-sm font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span>Quests</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 p-sm font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span>Analytics</span>
+</a>
+</div>
+<div class="px-md mt-auto pt-md border-t border-outline-variant/10">
+<button class="w-full bg-primary text-on-primary rounded-[12px] h-[48px] font-label-md text-label-md flex items-center justify-center gap-sm hover:opacity-90 transition-opacity mb-md">
+<span>Open Solver</span>
+</button>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-variant/50 rounded-xl p-sm font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-variant/50 rounded-xl p-sm font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar (Mobile/Tablet fallback if needed, but per strict instructions we rely on SideNav for desktop and BottomNav for mobile) -->
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 p-margin-mobile md:p-margin-desktop min-h-screen flex flex-col md:flex-row gap-gutter pb-24 lg:pb-margin-desktop">
+<!-- Graph Canvas Area -->
+<div class="flex-1 bg-surface-container-lowest rounded-xl border border-primary/10 relative overflow-hidden flex flex-col p-6 h-[500px] md:h-auto">
+<!-- Grid Background -->
+<div class="absolute inset-0" style="background-size: 40px 40px; background-image: linear-gradient(to right, #f0ecf5 1px, transparent 1px), linear-gradient(to bottom, #f0ecf5 1px, transparent 1px);"></div>
+<!-- Axes -->
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-outline-variant/50 -translate-y-1/2"></div>
+<div class="absolute left-1/2 top-0 w-[2px] h-full bg-outline-variant/50 -translate-x-1/2"></div>
+<!-- Graph Line (SVG representation of a generic function) -->
+<svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+<path d="M 0,80 Q 25,20 50,50 T 100,20" fill="none" stroke="#574eb1" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+<!-- Interaction Overlay (Hover target) -->
+<div class="absolute top-[30%] left-[45%] w-3 h-3 bg-primary rounded-full ring-4 ring-primary/20 shadow-md transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:scale-125 transition-transform group">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-inverse-surface text-inverse-on-surface px-3 py-1 rounded-lg font-label-sm text-label-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    f(x) = 2.4
+                </div>
+</div>
+<!-- Graph Label -->
+<div class="absolute top-6 left-6 bg-surface-container/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/10">
+<h2 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary">f(x) = a·sin(bx) + c</h2>
+</div>
+</div>
+<!-- Parameters Sidebar -->
+<aside class="w-full md:w-80 flex flex-col gap-md shrink-0">
+<!-- Contextual Mode Toggle -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-primary/10 flex items-center justify-between shadow-[0_8px_24px_rgba(38,33,92,0.02)]">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Contextual Mode</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Apply physics variables</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant/30" id="toggle" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant cursor-pointer" for="toggle"></label>
+</div>
+</div>
+<!-- Parameter Sliders -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-primary/10 flex flex-col gap-md shadow-[0_8px_24px_rgba(38,33,92,0.02)]">
+<h3 class="font-headline-md text-headline-md-mobile md:text-headline-md text-on-surface mb-2">Parameters</h3>
+<!-- Slider A -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="font-label-md text-label-md text-on-surface">Amplitude (a)</label>
+<span class="font-label-sm text-label-sm text-primary bg-primary/10 px-2 py-1 rounded-md">1.0</span>
+</div>
+<input class="w-full h-2 bg-secondary-fixed/30 rounded-lg appearance-none cursor-pointer custom-range" max="5" min="0" step="0.1" type="range" value="1">
+</div>
+<!-- Slider B -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="font-label-md text-label-md text-on-surface">Frequency (b)</label>
+<span class="font-label-sm text-label-sm text-primary bg-primary/10 px-2 py-1 rounded-md">2.0</span>
+</div>
+<input class="w-full h-2 bg-secondary-fixed/30 rounded-lg appearance-none cursor-pointer custom-range" max="10" min="0" step="0.5" type="range" value="2">
+</div>
+<!-- Slider C -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="font-label-md text-label-md text-on-surface">Phase (c)</label>
+<span class="font-label-sm text-label-sm text-primary bg-primary/10 px-2 py-1 rounded-md">0.0</span>
+</div>
+<input class="w-full h-2 bg-secondary-fixed/30 rounded-lg appearance-none cursor-pointer custom-range" max="3.14" min="-3.14" step="0.1" type="range" value="0">
+</div>
+</div>
+<!-- Current Formula Display -->
+<div class="bg-surface-container rounded-xl p-md border border-primary/5 mt-auto">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Active Equation</p>
+<div class="font-headline-md text-headline-md text-primary tracking-wide bg-surface-container-lowest p-sm rounded-lg text-center border border-primary/10">
+                    y = 1.0·sin(2.0x) + 0.0
+                </div>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-surface-container-lowest shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant font-label-sm text-label-sm active:bg-surface-variant/30 w-16 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span>Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-primary-fixed rounded-full px-4 py-1 font-label-sm text-label-sm scale-90 transition-all duration-150 w-20" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="menu_book" data-weight="fill" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span>Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant font-label-sm text-label-sm active:bg-surface-variant/30 w-16 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="forum">forum</span>
+<span>AI Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant font-label-sm text-label-sm active:bg-surface-variant/30 w-16 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</nav>
+</body></html>

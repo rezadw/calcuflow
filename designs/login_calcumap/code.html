@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Masuk - CalcuMap</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#7067cc",
+                      "tertiary-container": "#926f00",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e5e1ea",
+                      "secondary-fixed-dim": "#6edab4",
+                      "secondary": "#006c52",
+                      "on-secondary-container": "#007257",
+                      "on-surface-variant": "#474552",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#00513d",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#e5e1ea",
+                      "inverse-surface": "#313036",
+                      "tertiary-fixed-dim": "#efc04c",
+                      "outline-variant": "#c8c4d4",
+                      "surface-bright": "#fcf8ff",
+                      "on-secondary-fixed": "#002117",
+                      "inverse-on-surface": "#f3eff8",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#5951b4",
+                      "surface-container-low": "#f6f2fb",
+                      "on-primary-container": "#fffbff",
+                      "inverse-primary": "#c5c0ff",
+                      "on-primary": "#ffffff",
+                      "surface": "#fcf8ff",
+                      "surface-dim": "#dcd8e1",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#787583",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed": "#ffdf98",
+                      "tertiary": "#745800",
+                      "secondary-fixed": "#8af7cf",
+                      "primary-fixed-dim": "#c5c0ff",
+                      "primary-fixed": "#e4dfff",
+                      "on-tertiary-fixed": "#251a00",
+                      "on-tertiary-container": "#fffbff",
+                      "primary": "#574eb1",
+                      "on-background": "#1c1b21",
+                      "surface-container-high": "#ebe6f0",
+                      "surface-container": "#f0ecf5",
+                      "on-primary-fixed-variant": "#41379b",
+                      "background": "#fcf8ff",
+                      "on-tertiary-fixed-variant": "#5a4300",
+                      "on-surface": "#1c1b21",
+                      "secondary-container": "#8af7cf",
+                      "on-primary-fixed": "#140067",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "base": "8px",
+                      "md": "24px",
+                      "margin-mobile": "16px",
+                      "xl": "64px",
+                      "lg": "40px",
+                      "max-width": "1280px",
+                      "xs": "4px",
+                      "margin-desktop": "48px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #EEEDFE;
+        }
+        .input-border {
+            border-color: rgba(38, 33, 92, 0.15);
+        }
+        .input-border:focus {
+            border-color: #7F77DD;
+        }
+        .card-border {
+            border: 1px solid rgba(127, 119, 221, 0.1);
+        }
+        .text-dark-indigo {
+            color: #26215C;
+        }
+        .bg-primary-indigo {
+            background-color: #7F77DD;
+        }
+        .border-primary-indigo {
+            border-color: #7F77DD;
+        }
+        .text-primary-indigo {
+            color: #7F77DD;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-margin-mobile md:p-margin-desktop font-body-md text-on-surface">
+<main class="w-full max-w-[480px]">
+<div class="bg-surface rounded-xl p-md md:p-lg card-border flex flex-col gap-lg shadow-sm">
+<div class="text-center flex flex-col items-center gap-sm">
+<div class="flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-primary-indigo text-[32px]" style="font-variation-settings: 'FILL' 1;">
+                        category
+                    </span>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-dark-indigo">
+                        CalcuMap
+                    </h1>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Selamat datang kembali
+                </p>
+</div>
+<form class="flex flex-col gap-md">
+<div class="flex flex-col gap-base">
+<label class="font-label-md text-label-md text-on-surface sr-only" for="email">Email/NIM</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">
+                            person
+                        </span>
+<input class="w-full h-[48px] pl-[44px] pr-sm rounded-full bg-surface input-border border focus:border-2 focus:ring-0 outline-none transition-all font-body-md text-body-md text-on-surface placeholder:text-outline" id="email" placeholder="Email / NIM" type="text">
+</div>
+</div>
+<div class="flex flex-col gap-base">
+<label class="font-label-md text-label-md text-on-surface sr-only" for="password">Kata Sandi</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">
+                            lock
+                        </span>
+<input class="w-full h-[48px] pl-[44px] pr-[44px] rounded-full bg-surface input-border border focus:border-2 focus:ring-0 outline-none transition-all font-body-md text-body-md text-on-surface placeholder:text-outline" id="password" placeholder="Kata Sandi" type="password">
+<button class="absolute right-sm top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined">
+                                visibility
+                            </span>
+</button>
+</div>
+</div>
+<div class="flex justify-end mt-[-8px]">
+<a class="font-label-sm text-label-sm text-primary hover:underline transition-all" href="#">Lupa Kata Sandi?</a>
+</div>
+<button class="w-full h-[48px] bg-primary-indigo text-on-primary rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity active:opacity-80" type="submit">
+                    Masuk
+                </button>
+</form>
+<div class="flex items-center gap-sm">
+<div class="flex-1 h-[1px] bg-outline-variant"></div>
+<span class="font-label-sm text-label-sm text-outline">atau</span>
+<div class="flex-1 h-[1px] bg-outline-variant"></div>
+</div>
+<button class="w-full h-[48px] bg-transparent border border-primary-indigo text-primary-indigo rounded-full font-label-md text-label-md hover:bg-surface-container-low transition-colors active:opacity-80 flex items-center justify-center gap-sm" type="button">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">
+                    school
+                </span>
+                Masuk dengan SSO Kampus
+            </button>
+<div class="text-center mt-base">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Belum punya akun? <a class="font-label-md text-label-md text-dark-indigo hover:underline transition-all" href="#">Daftar</a>
+</p>
+</div>
+</div>
+</main>
+</body></html>

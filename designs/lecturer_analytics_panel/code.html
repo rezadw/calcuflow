@@ -1,0 +1,454 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CalcuMap - Lecturer Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#c8c4d4",
+                        "on-primary-fixed": "#140067",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#5951b4",
+                        "on-secondary-fixed": "#002117",
+                        "primary-container": "#7067cc",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#926f00",
+                        "inverse-on-surface": "#f3eff8",
+                        "tertiary-fixed-dim": "#efc04c",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary": "#745800",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f6f2fb",
+                        "surface-container": "#f0ecf5",
+                        "secondary-fixed": "#8af7cf",
+                        "background": "#fcf8ff",
+                        "tertiary-fixed": "#ffdf98",
+                        "on-surface": "#1c1b21",
+                        "surface-container-high": "#ebe6f0",
+                        "primary-fixed": "#e4dfff",
+                        "on-primary-container": "#fffbff",
+                        "surface": "#fcf8ff",
+                        "on-primary-fixed-variant": "#41379b",
+                        "on-background": "#1c1b21",
+                        "on-secondary-fixed-variant": "#00513d",
+                        "primary": "#574eb1",
+                        "surface-variant": "#e5e1ea",
+                        "primary-fixed-dim": "#c5c0ff",
+                        "on-tertiary-fixed-variant": "#5a4300",
+                        "on-secondary": "#ffffff",
+                        "outline": "#787583",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#313036",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-secondary-container": "#007257",
+                        "surface-dim": "#dcd8e1",
+                        "surface-container-highest": "#e5e1ea",
+                        "secondary": "#006c52",
+                        "secondary-container": "#8af7cf",
+                        "surface-bright": "#fcf8ff",
+                        "inverse-primary": "#c5c0ff",
+                        "on-surface-variant": "#474552",
+                        "secondary-fixed-dim": "#6edab4",
+                        "on-tertiary-container": "#fffbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "md": "24px",
+                        "max-width": "1280px",
+                        "margin-mobile": "16px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "margin-desktop": "48px",
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #fcf8ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .card-border { border: 1px solid rgba(127, 119, 221, 0.1); }
+        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(38, 33, 92, 0.08); }
+        
+        /* Heatmap colors */
+        .hm-0 { background-color: #f0ecf5; }
+        .hm-1 { background-color: #e4dfff; color: #140067; }
+        .hm-2 { background-color: #c5c0ff; color: #140067; }
+        .hm-3 { background-color: #7067cc; color: #ffffff; }
+        .hm-4 { background-color: #574eb1; color: #ffffff; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #fcf8ff; }
+        ::-webkit-scrollbar-thumb { background: #c8c4d4; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #787583; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden lg:flex flex-col h-full py-md border-r border-outline-variant/10 bg-surface-container dark:bg-surface-container-high h-screen w-64 fixed left-0 top-0 z-40">
+<div class="px-md mb-lg flex items-center gap-sm">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">functions</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">CalcuMap</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Precision Learning</p>
+</div>
+</div>
+<div class="flex flex-col gap-1 flex-1 overflow-y-auto px-sm">
+<a class="flex items-center gap-md px-md py-sm rounded-xl mx-2 my-1 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-xl mx-2 my-1 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">school</span>
+                CalcuLearn
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-xl mx-2 my-1 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+                CalcuSim
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-xl mx-2 my-1 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+                AI Tutor
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-xl mx-2 my-1 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+                Quests
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center gap-md px-md py-sm bg-primary-container dark:bg-primary-container text-on-primary-container rounded-xl mx-2 my-1 transition-transform font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+                Analytics
+            </a>
+</div>
+<div class="mt-auto px-sm flex flex-col gap-1">
+<button class="w-full flex items-center justify-center gap-sm bg-primary text-on-primary rounded-xl py-sm font-label-md text-label-md mb-sm hover:opacity-90 transition-opacity mx-2" style="width: calc(100% - 16px);">
+                Open Solver
+            </button>
+<a class="flex items-center gap-md px-md py-sm rounded-xl mx-2 my-1 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-xl mx-2 my-1 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 h-full flex flex-col relative overflow-hidden bg-background">
+<!-- TopNavBar (Mobile only, Desktop uses SideNav and Title area) -->
+<header class="lg:hidden sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile py-4 bg-surface dark:bg-surface-container-low border-b border-outline-variant/10">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">functions</span>
+</div>
+<h1 class="font-headline-md text-headline-md-mobile text-primary font-bold">CalcuMap</h1>
+</div>
+<div class="flex gap-sm">
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container">
+<img alt="Student profile avatar" class="w-full h-full object-cover" data-alt="A clean, minimalist portrait of a modern university lecturer or educator with a friendly, professional expression, set against a bright, airy white background with soft, high-key lighting characteristic of contemporary educational platforms. The overall palette features cool tones, subtle indigo shadows, and a calm, approachable aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs31tKXbaVpz4umxuP9tOC-cSYIpmOYDBvnuRTiVIO105-FrGbP6Y-wU2vnuCJjFALZV3-LQF73IFcyFSeoggMvuxgYtittTYIWTdNzjX6W_7xdZ-saq303mHPxpBGyodcWpHAQr_xvR-lxhATt_KP-O0HtoQ1TD2VtQLhUtV1MmrkK_pssEplehkB8Z0Sop0mK712wg3kDDSAnperNCpyhxgUl0XOO451b3nOvbpNKnzdm3P3NpSelIMiH798NW0wEiHRRRnrRgxG">
+</div>
+</div>
+</header>
+<!-- Page Header (Desktop) -->
+<div class="hidden lg:flex sticky top-0 z-30 justify-between items-center w-full px-margin-desktop py-md bg-surface/80 backdrop-blur-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Lecturer Analytics</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Calculus 101 - Fall Cohort B</p>
+</div>
+<div class="flex gap-sm items-center">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="h-12 pl-10 pr-4 rounded-xl border border-outline-variant/30 bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md w-64 text-on-background" placeholder="Search students..." type="text">
+</div>
+<button class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<div class="w-12 h-12 rounded-xl overflow-hidden border-2 border-surface-container ml-2">
+<img alt="Lecturer avatar" class="w-full h-full object-cover" data-alt="A clean, minimalist portrait of a modern university lecturer or educator with a friendly, professional expression, set against a bright, airy white background with soft, high-key lighting characteristic of contemporary educational platforms. The overall palette features cool tones, subtle indigo shadows, and a calm, approachable aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZiARytm0M5k2LMVx-QzSJ8k0mVTdnorD34-EL6M4ezlG_RCoXsJrGX9fVy0mShyR9XIyfUSIb3jGFjXoEJOXX3xWeOxcz7hthUEJ2WCLelXOw9_sZihH80Dq4M802o6YcsFOXFYLhJRdwfVV6wgUkEjTwkyjrZ3jeh1f5QC3vBiM3zZxqbAivdxk9tiKOKNrP1qKDBz2mEqDqhbBqkygsJpdBTEmcBiJ73U5I-d6jZmztaWNGUjTwWuooDUJs2krQB8tLeiv3PVRj">
+</div>
+</div>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-margin-mobile lg:p-margin-desktop pb-24 lg:pb-margin-desktop">
+<!-- Mobile Title -->
+<div class="lg:hidden mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Lecturer Analytics</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Calculus 101 - Fall Cohort B</p>
+</div>
+<!-- Metrics Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-lg">
+<!-- Card 1: Pre-test -->
+<div class="bg-surface-container-lowest rounded-[16px] p-md card-border hover-lift relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/30 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start relative z-10">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Avg. Pre-Test</p>
+<h3 class="font-display-lg text-display-lg text-on-background">42<span class="text-headline-md text-on-surface-variant">%</span></h3>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">assignment</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-xs relative z-10">
+<span class="font-label-sm text-label-sm text-secondary flex items-center bg-secondary-fixed/20 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span> +5%
+                        </span>
+<span class="font-label-sm text-label-sm text-outline">vs last cohort</span>
+</div>
+</div>
+<!-- Card 2: Post-test -->
+<div class="bg-surface-container-lowest rounded-[16px] p-md card-border hover-lift relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-fixed/30 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start relative z-10">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Avg. Post-Test</p>
+<h3 class="font-display-lg text-display-lg text-on-background">78<span class="text-headline-md text-on-surface-variant">%</span></h3>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-xs relative z-10">
+<span class="font-label-sm text-label-sm text-secondary flex items-center bg-secondary-fixed/20 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span> +12%
+                        </span>
+<span class="font-label-sm text-label-sm text-outline">vs last cohort</span>
+</div>
+</div>
+<!-- Card 3: At Risk -->
+<div class="bg-surface-container-lowest rounded-[16px] p-md card-border hover-lift relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-error-container/40 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start relative z-10">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Students At-Risk</p>
+<h3 class="font-display-lg text-display-lg text-on-background">14<span class="text-headline-md text-on-surface-variant">/120</span></h3>
+</div>
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div class="mt-4 w-full bg-surface-container rounded-full h-2 overflow-hidden relative z-10">
+<div class="bg-error h-full rounded-full" style="width: 11.6%"></div>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-2 text-right relative z-10">11.6% of cohort</p>
+</div>
+</div>
+<!-- Heatmap Section (Main) -->
+<div class="bg-surface-container-lowest rounded-[16px] card-border p-md lg:p-lg mb-lg">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-md gap-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background">Concept Mastery Heatmap</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Module completion and quiz scores across core concepts.</p>
+</div>
+<div class="flex items-center gap-xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-3 py-2 rounded-xl">
+<span>Needs Review</span>
+<div class="flex gap-1 mx-2">
+<div class="w-4 h-4 rounded hm-1"></div>
+<div class="w-4 h-4 rounded hm-2"></div>
+<div class="w-4 h-4 rounded hm-3"></div>
+<div class="w-4 h-4 rounded hm-4"></div>
+</div>
+<span>Mastered</span>
+</div>
+</div>
+<div class="overflow-x-auto pb-4">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant/20 sticky left-0 bg-surface-container-lowest z-10">Student</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant/20 text-center w-24">Limits</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant/20 text-center w-24">Derivatives</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant/20 text-center w-24">Chain Rule</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant/20 text-center w-24">Integrals</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant/20 text-center w-24">Diff Eq</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<!-- Row 1 -->
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="p-3 border-b border-outline-variant/10 sticky left-0 bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors z-10 flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-md text-label-md">AS</div>
+<span class="text-on-background font-medium">Alex Smith</span>
+</td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-4 flex items-center justify-center font-label-sm text-label-sm">95%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-3 flex items-center justify-center font-label-sm text-label-sm">82%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-4 flex items-center justify-center font-label-sm text-label-sm">88%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-2 flex items-center justify-center font-label-sm text-label-sm">65%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-1 flex items-center justify-center font-label-sm text-label-sm">45%</div></td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="p-3 border-b border-outline-variant/10 sticky left-0 bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors z-10 flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md text-label-md">BJ</div>
+<span class="text-on-background font-medium">Ben Johnson</span>
+</td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-3 flex items-center justify-center font-label-sm text-label-sm">78%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-1 flex items-center justify-center font-label-sm text-label-sm">42%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-1 flex items-center justify-center font-label-sm text-label-sm">38%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant">N/A</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant">N/A</div></td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="p-3 border-b border-outline-variant/10 sticky left-0 bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors z-10 flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-md text-label-md">CK</div>
+<span class="text-on-background font-medium">Chloe Kim</span>
+</td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-4 flex items-center justify-center font-label-sm text-label-sm">98%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-4 flex items-center justify-center font-label-sm text-label-sm">92%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-4 flex items-center justify-center font-label-sm text-label-sm">95%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-3 flex items-center justify-center font-label-sm text-label-sm">85%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-2 flex items-center justify-center font-label-sm text-label-sm">70%</div></td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="p-3 border-b border-outline-variant/10 sticky left-0 bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors z-10 flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-label-md text-label-md">DP</div>
+<span class="text-on-background font-medium">David Park</span>
+</td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-2 flex items-center justify-center font-label-sm text-label-sm">60%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-1 flex items-center justify-center font-label-sm text-label-sm">45%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-1 flex items-center justify-center font-label-sm text-label-sm">30%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-1 flex items-center justify-center font-label-sm text-label-sm">25%</div></td>
+<td class="p-2 border-b border-outline-variant/10"><div class="w-full h-10 rounded-lg hm-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant">N/A</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 flex justify-end">
+<button class="font-label-md text-label-md text-primary flex items-center gap-xs hover:bg-primary-fixed/20 px-4 py-2 rounded-xl transition-colors">
+                        View Full Cohort <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Bottom Section: Students at Risk -->
+<div class="bg-surface-container-lowest rounded-[16px] card-border p-md lg:p-lg">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-on-background flex items-center gap-sm">
+<span class="material-symbols-outlined text-error">warning</span>
+                        Intervention Required
+                    </h3>
+<button class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Student Card 1 -->
+<div class="border border-outline-variant/30 rounded-xl p-4 flex flex-col hover:border-primary/50 transition-colors bg-surface">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-label-md text-label-md font-bold">DP</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">David Park</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Last active: 3 days ago</p>
+</div>
+</div>
+<span class="bg-error-container text-error px-2 py-1 rounded-md font-label-sm text-label-sm font-bold flex items-center gap-1">
+                                High Risk
+                            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-1 text-sm">Struggling significantly with Chain Rule and Integrals. Missed last 2 assignments.</p>
+<div class="flex gap-sm mt-auto">
+<button class="flex-1 bg-surface-container text-on-surface font-label-md text-label-md py-2 rounded-xl hover:bg-surface-variant transition-colors border border-outline-variant/20">Message</button>
+<button class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-2 rounded-xl hover:opacity-90 transition-opacity">Assign Tutor</button>
+</div>
+</div>
+<!-- Student Card 2 -->
+<div class="border border-outline-variant/30 rounded-xl p-4 flex flex-col hover:border-primary/50 transition-colors bg-surface">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-md text-label-md font-bold">BJ</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">Ben Johnson</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Last active: Yesterday</p>
+</div>
+</div>
+<span class="bg-tertiary-container/30 text-tertiary px-2 py-1 rounded-md font-label-sm text-label-sm font-bold flex items-center gap-1">
+                                Medium Risk
+                            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-1 text-sm">Failed recent quiz on Derivatives. High engagement, but low comprehension.</p>
+<div class="flex gap-sm mt-auto">
+<button class="flex-1 bg-surface-container text-on-surface font-label-md text-label-md py-2 rounded-xl hover:bg-surface-variant transition-colors border border-outline-variant/20">Message</button>
+<button class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-2 rounded-xl hover:opacity-90 transition-opacity">Assign Tutor</button>
+</div>
+</div>
+<!-- Student Card 3 -->
+<div class="border border-outline-variant/30 rounded-xl p-4 flex flex-col hover:border-primary/50 transition-colors bg-surface">
+<div class="flex items-center justify-center h-full min-h-[160px] text-center border-2 border-dashed border-outline-variant/40 rounded-xl">
+<div>
+<span class="material-symbols-outlined text-outline text-3xl mb-2">group_add</span>
+<p class="font-label-md text-label-md text-on-surface-variant">View all 14 at-risk students</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-surface-container-lowest shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant w-16" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant w-16" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-label-sm text-label-sm">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant w-16" href="#">
+<span class="material-symbols-outlined mb-1">forum</span>
+<span class="font-label-sm text-label-sm">AI Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-primary-fixed rounded-full px-4 py-1 active:bg-surface-variant/30 w-16" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm font-bold">Profile</span>
+</a>
+</nav>
+</body></html>
