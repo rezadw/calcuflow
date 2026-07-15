@@ -15,7 +15,8 @@ import {
   IconPlayerPlayFilled,
   IconMessageCircle2,
   IconUsers,
-  IconAlertTriangle
+  IconAlertTriangle,
+  IconLogout
 } from '@tabler/icons-react';
 
 export default function DashboardPage() {
@@ -25,6 +26,7 @@ export default function DashboardPage() {
   const setEnrolled = useAuthStore(state => state.setEnrolled);
   const hasCompletedPretest = useAuthStore(state => state.hasCompletedPretest);
   const setHasCompletedPretest = useAuthStore(state => state.setHasCompletedPretest);
+  const logout = useAuthStore(state => state.logout);
   const [progress, setProgress] = useState<any[]>([]);
   const [statusLoading, setStatusLoading] = useState(true);
 
@@ -117,14 +119,21 @@ export default function DashboardPage() {
         </nav>
 
         <div className="p-6 mt-auto">
-          <div className="flex items-center gap-3 p-3 rounded-2xl hover:bg-gray-50 cursor-pointer transition-colors border border-transparent hover:border-gray-100">
+          <div className="flex items-center gap-3 p-3 rounded-2xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100 group">
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#7F77DD] to-[#5DCAA5] flex items-center justify-center text-white font-bold shrink-0">
               {user ? user.name.substring(0, 2).toUpperCase() : 'U'}
             </div>
-            <div className="overflow-hidden">
+            <div className="overflow-hidden flex-1">
               <p className="font-semibold text-sm truncate">{user ? user.name : 'Pengguna'}</p>
               <p className="text-xs text-gray-500 truncate">{user ? user.role : 'Role'}</p>
             </div>
+            <button 
+              onClick={() => logout()}
+              className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl opacity-0 group-hover:opacity-100 transition-all focus:opacity-100"
+              title="Keluar"
+            >
+              <IconLogout size={20} />
+            </button>
           </div>
         </div>
       </aside>
