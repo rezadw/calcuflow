@@ -86,7 +86,10 @@ export default function DashboardPage() {
     return true;
   });
 
-  if (user?.role === 'dosen') {
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  if (user.role === 'dosen') {
     return <Navigate to="/dashboard-dosen" replace />;
   }
 
@@ -129,7 +132,7 @@ export default function DashboardPage() {
             </div>
             <button 
               onClick={() => logout()}
-              className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl opacity-0 group-hover:opacity-100 transition-all focus:opacity-100"
+              className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
               title="Keluar"
             >
               <IconLogout size={20} />

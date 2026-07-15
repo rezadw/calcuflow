@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
 import api from '../lib/api';
 import {
@@ -27,6 +27,13 @@ export default function DosenDashboardPage() {
   const logout = useAuthStore(state => state.logout);
   
   const [classes, setClasses] = useState<any[]>([]);
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  if (user.role === 'mahasiswa') {
+    return <Navigate to="/dashboard" replace />;
+  }
   
   useEffect(() => {
     const fetchClasses = async () => {
@@ -93,7 +100,7 @@ export default function DosenDashboardPage() {
             </div>
             <button 
               onClick={() => logout()}
-              className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl opacity-0 group-hover:opacity-100 transition-all focus:opacity-100"
+              className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
               title="Keluar"
             >
               <IconLogout size={20} />
