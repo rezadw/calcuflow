@@ -28,13 +28,8 @@ export default function DosenDashboardPage() {
   
   const [classes, setClasses] = useState<any[]>([]);
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-  if (user.role === 'mahasiswa') {
-    return <Navigate to="/dashboard" replace />;
-  }
   
+
   useEffect(() => {
     const fetchClasses = async () => {
       try {
@@ -59,6 +54,13 @@ export default function DosenDashboardPage() {
     { label: 'Dashboard', path: '/dashboard-dosen', icon: <IconHome size={22} /> },
     { label: 'Analitik', path: '/dosen', icon: <IconChartBar size={22} /> },
   ];
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  if (user.role === 'mahasiswa') {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className="flex h-screen bg-[#EEEDFE] font-sans text-[#26215C]">

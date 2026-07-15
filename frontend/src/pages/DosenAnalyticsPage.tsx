@@ -238,7 +238,7 @@ export default function DosenAnalyticsPage() {
                         <td className="px-4 py-2 text-center">
                           {student.phone_number ? (
                             <a 
-                              href={`https://wa.me/${student.phone_number.replace(/^0/, '62')}`}
+                              href={`https://wa.me/${String(student.phone_number).replace(/\D/g, '').replace(/^0/, '62')}`}
                               target="_blank" 
                               rel="noopener noreferrer"
                               className="inline-flex items-center justify-center p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-colors"
