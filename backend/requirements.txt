@@ -3,7 +3,7 @@ uvicorn
 sqlalchemy
 python-jose[cryptography]
 passlib[bcrypt]
-google-generativeai
+google-genai
 python-multipart
 psycopg2-binary
 python-dotenv

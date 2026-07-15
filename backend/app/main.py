@@ -291,25 +291,22 @@ async def calcumind_chat(request: schemas.ChatRequest, current_user: models.User
         return {"reply": reply}
 
     try:
-        import google.generativeai as genai
-        genai.configure(api_key=api_key)
+        from google import genai
+        client = genai.Client(api_key=api_key)
         
         system_prompt = "You are CalcuMind, a Socratic math tutor for Indonesian university students learning calculus. Never give the answer directly. Always ask guiding questions first. If the student is stuck, give progressive hints — one at a time. Only confirm or correct after the student has attempted the solution themselves. Always respond in Indonesian."
         
-        history = []
+        prompt_with_sys = f"System Instruction: {system_prompt}\n\nChat History:\n"
         for msg in request.messages[:-1]:
-            role = "user" if msg.role == "user" else "model"
-            history.append({"role": role, "parts": [msg.content]})
+            role_name = "Student" if msg.role == "user" else "CalcuMind"
+            prompt_with_sys += f"{role_name}: {msg.content}\n"
             
-        try:
-            model = genai.GenerativeModel('gemini-1.5-flash', system_instruction=system_prompt)
-            chat = model.start_chat(history=history)
-            response = chat.send_message(request.messages[-1].content)
-        except Exception:
-            model = genai.GenerativeModel('gemini-pro')
-            chat = model.start_chat(history=history)
-            prompt_with_sys = f"System Instruction: {system_prompt}\n\nStudent Question: {request.messages[-1].content}"
-            response = chat.send_message(prompt_with_sys)
+        prompt_with_sys += f"Student: {request.messages[-1].content}\nCalcuMind:"
+        
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt_with_sys
+        )
         
         return {"reply": response.text}
     except Exception as e:
