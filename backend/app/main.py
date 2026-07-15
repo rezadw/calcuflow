@@ -304,7 +304,7 @@ async def calcumind_chat(request: schemas.ChatRequest, current_user: models.User
         prompt_with_sys += f"Student: {request.messages[-1].content}\nCalcuMind:"
         
         response = client.models.generate_content(
-            model='gemini-2.5-flash',
+            model='gemini-3.5-flash',
             contents=prompt_with_sys
         )
         
