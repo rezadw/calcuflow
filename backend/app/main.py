@@ -320,7 +320,7 @@ async def calcumind_chat(request: schemas.ChatRequest, current_user: models.User
         else:
             reply = "Wah, pertanyaan yang bagus! CalcuMind siap membantu. Sebelum saya memberi tahu solusinya, apa pendapatmu tentang langkah pertama yang harus dilakukan?"
         
-        reply += f"\n\n*(Catatan Sistem: API Key Anda tidak valid atau tidak mendukung model AI teks. Menggunakan respons otomatis CalcuMind.)*"
+        reply += f"\n\n*(Catatan Sistem: Gagal menghubungi server AI. Error detail: {str(e)})*"
         return {"reply": reply}
 
 if __name__ == "__main__":
