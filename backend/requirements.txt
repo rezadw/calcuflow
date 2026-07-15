@@ -8,3 +8,4 @@ python-multipart
 psycopg2-binary
 python-dotenv
 anthropic
+bcrypt==3.2.2
