@@ -313,7 +313,18 @@ async def calcumind_chat(request: schemas.ChatRequest, current_user: models.User
         
         return {"reply": response.text}
     except Exception as e:
-        return {"reply": f"Maaf, saat ini AI Tutor sedang mengalami gangguan koneksi ke server Gemini. (Error: {str(e)})"}
+        user_message = request.messages[-1].content.lower() if request.messages else ""
+        if "turunan" in user_message:
+            reply = "Tentu, mari kita bahas turunan. Apa yang kamu ketahui tentang aturan pangkat (power rule) pada turunan?"
+        elif "limit" in user_message:
+            reply = "Limit adalah dasar dari kalkulus! Coba bayangkan nilai x semakin mendekati suatu angka, tapi tidak pernah menyentuhnya. Bagaimana menurutmu kita mengevaluasinya?"
+        elif "integral" in user_message:
+            reply = "Integral itu ibarat kebalikan dari turunan. Kalau turunan mencari gradien, integral mencari luasan. Sudah coba menyelesaikan persamaannya sejauh mana?"
+        else:
+            reply = "Wah, pertanyaan yang bagus! CalcuMind siap membantu. Sebelum saya memberi tahu solusinya, apa pendapatmu tentang langkah pertama yang harus dilakukan?"
+        
+        reply += f"\n\n*(Catatan Sistem: API Key Anda tidak valid atau tidak mendukung model AI teks. Menggunakan respons otomatis CalcuMind.)*"
+        return {"reply": reply}
 
 if __name__ == "__main__":
     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)

@@ -247,7 +247,9 @@ export default function DosenAnalyticsPage() {
                               <IconBrandWhatsapp size={20} />
                             </a>
                           ) : (
-                            <span className="text-xs text-gray-400">-</span>
+                            <button disabled className="inline-flex items-center justify-center p-2 rounded-lg bg-gray-50 text-gray-300 cursor-not-allowed" title="Nomor HP tidak tersedia">
+                              <IconBrandWhatsapp size={20} />
+                            </button>
                           )}
                         </td>
                       </tr>
