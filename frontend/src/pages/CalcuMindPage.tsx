@@ -3,11 +3,36 @@ import { Link, useNavigate } from 'react-router-dom';
 import { IconArrowLeft, IconSend, IconPhotoPlus, IconBrain, IconBulb } from '@tabler/icons-react';
 import api from '../lib/api';
 import { useAuthStore } from '../store/useAuthStore';
+import 'katex/dist/katex.min.css';
+import { InlineMath, BlockMath } from 'react-katex';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
+
+const MessageFormatter = ({ content }: { content: string }) => {
+  const regex = /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\(.*?\\\)|(?<!\\)\$[\s\S]*?(?<!\\)\$)/g;
+  const parts = content.split(regex);
+
+  return (
+    <>
+      {parts.map((part, index) => {
+        if (!part) return null;
+        if (part.startsWith('$$') && part.endsWith('$$')) {
+          return <BlockMath key={index} math={part.slice(2, -2)} />;
+        } else if (part.startsWith('\\[') && part.endsWith('\\]')) {
+          return <BlockMath key={index} math={part.slice(2, -2)} />;
+        } else if (part.startsWith('\\(') && part.endsWith('\\)')) {
+          return <InlineMath key={index} math={part.slice(2, -2)} />;
+        } else if (part.startsWith('$') && part.endsWith('$')) {
+          return <InlineMath key={index} math={part.slice(1, -1)} />;
+        }
+        return <span key={index}>{part}</span>;
+      })}
+    </>
+  );
+};
 
 export default function CalcuMindPage() {
   const navigate = useNavigate();
@@ -133,7 +158,9 @@ export default function CalcuMindPage() {
                     ? 'bg-white rounded-[2rem] rounded-tr-sm border border-gray-100' 
                     : 'bg-[#EEEDFE] rounded-[2rem] rounded-tl-sm'
                 }`}>
-                  <p className="text-[15px] leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                  <div className="text-[15px] leading-relaxed whitespace-pre-wrap overflow-x-auto">
+                    <MessageFormatter content={msg.content} />
+                  </div>
                 </div>
                 
                 {/* Show "Butuh hint?" button only on the last assistant message if not loading */}
