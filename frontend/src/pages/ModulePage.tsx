@@ -5,6 +5,9 @@ import 'katex/dist/katex.min.css';
 import { mockModuleData } from './mockModuleData';
 import type { Chapter, SubChapter, QuizQuestion } from './mockModuleData';
 import { IconChevronDown, IconChevronRight, IconCheck, IconX, IconMessageCircle2, IconArrowLeft, IconListNumbers, IconBulb, IconMathFunction } from '@tabler/icons-react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import api from '../lib/api';
 import { useAuthStore } from '../store/useAuthStore';
 
@@ -189,7 +192,12 @@ export default function ModulePage() {
                 <div className="space-y-8 mb-10">
                   {activeSubChapter.quiz.map((q, qIndex) => (
                     <div key={q.id} className="p-6 bg-gray-50 rounded-2xl">
-                      <p className="font-bold text-lg mb-4">{qIndex + 1}. {q.question}</p>
+                      <div className="font-bold text-lg mb-4 flex items-start gap-2">
+                        <span>{qIndex + 1}.</span>
+                        <div>
+                          <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{q.question}</ReactMarkdown>
+                        </div>
+                      </div>
                       <div className="space-y-3">
                         {q.options.map(opt => (
                           <label key={opt} className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 cursor-pointer hover:bg-[#EEEDFE] transition-colors">
@@ -199,9 +207,11 @@ export default function ModulePage() {
                               value={opt}
                               checked={quizAnswers[q.id] === opt}
                               onChange={(e) => setQuizAnswers({...quizAnswers, [q.id]: e.target.value})}
-                              className="w-5 h-5 text-[#7F77DD] focus:ring-[#7F77DD]"
+                              className="w-5 h-5 text-[#7F77DD] focus:ring-[#7F77DD] shrink-0"
                             />
-                            <span>{opt}</span>
+                            <span className="font-medium">
+                              <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{opt}</ReactMarkdown>
+                            </span>
                           </label>
                         ))}
                       </div>

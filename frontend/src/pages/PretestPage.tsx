@@ -5,19 +5,23 @@ import { usePretestStore } from '../store/usePretestStore';
 import { useAuthStore } from '../store/useAuthStore';
 import api from '../lib/api';
 import { IconCheck, IconChevronRight, IconBook } from '@tabler/icons-react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 // Mock question bank (10 questions)
 const questions = [
-  { id: 1, text: 'Jika f(x) = 2x + 5, berapakah nilai f(3)?', options: ['8', '10', '11', '13'], answer: '11', topic: 'Fungsi' },
-  { id: 2, text: 'Bentuk sederhana dari (x + 2)(x - 2) adalah...', options: ['x² - 4', 'x² + 4', 'x² - 4x', 'x² + 4x'], answer: 'x² - 4', topic: 'Aljabar' },
-  { id: 3, text: 'Nilai dari sin(30°) adalah...', options: ['0', '1/2', '√2/2', '1'], answer: '1/2', topic: 'Trigonometri' },
-  { id: 4, text: 'lim (x → 0) (sin x) / x = ...', options: ['0', '1', 'Tak Hingga', 'Tidak ada'], answer: '1', topic: 'Limit' },
-  { id: 5, text: 'lim (x → 2) (x² - 4) / (x - 2) = ...', options: ['0', '2', '4', 'Tak Hingga'], answer: '4', topic: 'Limit' },
-  { id: 6, text: 'Turunan pertama dari f(x) = x³ adalah...', options: ['3x²', 'x²', '3x', 'x³'], answer: '3x²', topic: 'Turunan' },
-  { id: 7, text: 'Turunan dari sin(x) adalah...', options: ['cos(x)', '-cos(x)', 'sin(x)', '-sin(x)'], answer: 'cos(x)', topic: 'Turunan' },
-  { id: 8, text: 'Hasil dari ∫ 2x dx adalah...', options: ['x² + C', '2x² + C', 'x + C', '2 + C'], answer: 'x² + C', topic: 'Integral' },
-  { id: 9, text: 'Hasil dari ∫ cos(x) dx adalah...', options: ['sin(x) + C', '-sin(x) + C', 'cos(x) + C', '-cos(x) + C'], answer: 'sin(x) + C', topic: 'Integral' },
-  { id: 10, text: 'Faktorkan: x² - 9 = 0', options: ['(x-3)(x-3)', '(x+3)(x+3)', '(x-3)(x+3)', '(x-9)(x+1)'], answer: '(x-3)(x+3)', topic: 'Aljabar' },
+  { id: 1, text: 'Jika $f(x) = 2x + 5$, berapakah nilai $f(3)$?', options: ['$8$', '$10$', '$11$', '$13$'], answer: '$11$', topic: 'Fungsi' },
+  { id: 2, text: 'Bentuk sederhana dari $(x + 2)(x - 2)$ adalah...', options: ['$x^2 - 4$', '$x^2 + 4$', '$x^2 - 4x$', '$x^2 + 4x$'], answer: '$x^2 - 4$', topic: 'Aljabar' },
+  { id: 3, text: 'Nilai dari $\\sin(30^\\circ)$ adalah...', options: ['$0$', '$\\frac{1}{2}$', '$\\frac{\\sqrt{2}}{2}$', '$1$'], answer: '$\\frac{1}{2}$', topic: 'Trigonometri' },
+  { id: 4, text: '$\\lim_{x \\to 0} \\frac{\\sin x}{x} = \\dots$', options: ['$0$', '$1$', '$\\infty$', 'Tidak ada'], answer: '$1$', topic: 'Limit' },
+  { id: 5, text: '$\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2} = \\dots$', options: ['$0$', '$2$', '$4$', '$\\infty$'], answer: '$4$', topic: 'Limit' },
+  { id: 6, text: 'Turunan pertama dari $f(x) = x^3$ adalah...', options: ['$3x^2$', '$x^2$', '$3x$', '$x^3$'], answer: '$3x^2$', topic: 'Turunan' },
+  { id: 7, text: 'Turunan dari $\\sin(x)$ adalah...', options: ['$\\cos(x)$', '$-\\cos(x)$', '$\\sin(x)$', '$-\\sin(x)$'], answer: '$\\cos(x)$', topic: 'Turunan' },
+  { id: 8, text: 'Hasil dari $\\int 2x dx$ adalah...', options: ['$x^2 + C$', '$2x^2 + C$', '$x + C$', '$2 + C$'], answer: '$x^2 + C$', topic: 'Integral' },
+  { id: 9, text: 'Hasil dari $\\int \\cos(x) dx$ adalah...', options: ['$\\sin(x) + C$', '$-\\sin(x) + C$', '$\\cos(x) + C$', '$-\\cos(x) + C$'], answer: '$\\sin(x) + C$', topic: 'Integral' },
+  { id: 10, text: 'Faktorkan: $x^2 - 9 = 0$', options: ['$(x-3)(x-3)$', '$(x+3)(x+3)$', '$(x-3)(x+3)$', '$(x-9)(x+1)$'], answer: '$(x-3)(x+3)$', topic: 'Aljabar' },
 ];
 
 export default function PretestPage() {
@@ -125,7 +129,9 @@ export default function PretestPage() {
               <span className="inline-block px-4 py-1.5 bg-[#EEEDFE] text-[#7F77DD] text-sm font-bold rounded-full mb-4">
                 Topik: {currentQ.topic}
               </span>
-              <h2 className="text-2xl font-bold">{currentQ.text}</h2>
+              <div className="text-2xl font-bold">
+                <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{currentQ.text}</ReactMarkdown>
+              </div>
             </div>
 
             {/* Options */}
@@ -140,7 +146,9 @@ export default function PretestPage() {
                       : 'border-gray-100 hover:border-[#7F77DD] hover:bg-gray-50'
                   }`}
                 >
-                  <span className="font-medium text-lg">{option}</span>
+                  <span className="font-medium text-lg">
+                    <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{option}</ReactMarkdown>
+                  </span>
                   {selectedOption === option && (
                     <div className="w-6 h-6 rounded-full bg-[#7F77DD] flex items-center justify-center text-white">
                       <IconCheck size={16} stroke={3} />

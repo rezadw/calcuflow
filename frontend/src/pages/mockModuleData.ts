@@ -39,15 +39,15 @@ export const mockModuleData: Chapter[] = [
         quiz: [
           {
             id: "q-1",
-            question: "Berapakah hasil dari lim x->3 (x + 2)?",
-            options: ["3", "4", "5", "6"],
-            correctAnswer: "5"
+            question: "Berapakah hasil dari $\\lim_{x \\to 3} (x + 2)$?",
+            options: ["$3$", "$4$", "$5$", "$6$"],
+            correctAnswer: "$5$"
           },
           {
             id: "q-2",
-            question: "Berapakah hasil dari lim x->0 (2x)?",
-            options: ["0", "1", "2", "Tak hingga"],
-            correctAnswer: "0"
+            question: "Berapakah hasil dari $\\lim_{x \\to 0} (2x)$?",
+            options: ["$0$", "$1$", "$2$", "$\\infty$"],
+            correctAnswer: "$0$"
           },
           {
             id: "q-3",
@@ -72,21 +72,21 @@ export const mockModuleData: Chapter[] = [
         quiz: [
           {
             id: "q-4",
-            question: "Berapakah hasil dari lim x->3 (x^2 - 9) / (x - 3)?",
-            options: ["0", "3", "6", "9"],
-            correctAnswer: "6"
+            question: "Berapakah hasil dari $\\lim_{x \\to 3} \\frac{x^2 - 9}{x - 3}$?",
+            options: ["$0$", "$3$", "$6$", "$9$"],
+            correctAnswer: "$6$"
           },
           {
             id: "q-5",
-            question: "Jika substitusi langsung menghasilkan 0/0, apa langkah yang tepat?",
-            options: ["Pemfaktoran", "Hasilnya 0", "Hasilnya Tak Hingga", "Menambah x"],
+            question: "Jika substitusi langsung menghasilkan $\\frac{0}{0}$, apa langkah yang tepat?",
+            options: ["Pemfaktoran", "Hasilnya $0$", "Hasilnya $\\infty$", "Menambah $x$"],
             correctAnswer: "Pemfaktoran"
           },
           {
             id: "q-6",
-            question: "Hasil dari lim x->1 (x-1)/(x-1) adalah?",
-            options: ["0", "1", "Tak Hingga", "2"],
-            correctAnswer: "1"
+            question: "Hasil dari $\\lim_{x \\to 1} \\frac{x-1}{x-1}$ adalah?",
+            options: ["$0$", "$1$", "$\\infty$", "$2$"],
+            correctAnswer: "$1$"
           }
         ]
       }
@@ -110,9 +110,9 @@ export const mockModuleData: Chapter[] = [
         quiz: [
           {
             id: "q-7",
-            question: "Turunan fungsi f(x) = x^2 adalah?",
-            options: ["x", "2x", "x^3", "2x^2"],
-            correctAnswer: "2x"
+            question: "Turunan fungsi $f(x) = x^2$ adalah?",
+            options: ["$x$", "$2x$", "$x^3$", "$2x^2$"],
+            correctAnswer: "$2x$"
           },
           {
             id: "q-8",
@@ -122,9 +122,9 @@ export const mockModuleData: Chapter[] = [
           },
           {
             id: "q-9",
-            question: "Berapakah turunan dari f(x) = 5x?",
-            options: ["0", "1", "5", "x"],
-            correctAnswer: "5"
+            question: "Berapakah turunan dari $f(x) = 5x$?",
+            options: ["$0$", "$1$", "$5$", "$x$"],
+            correctAnswer: "$5$"
           }
         ]
       }
