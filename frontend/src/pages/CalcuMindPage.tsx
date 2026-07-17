@@ -11,26 +11,21 @@ interface Message {
   content: string;
 }
 
-const MessageFormatter = ({ content }: { content: string }) => {
-  const regex = /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\(.*?\\\)|(?<!\\)\$[\s\S]*?(?<!\\)\$)/g;
-  const parts = content.split(regex);
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
+const MessageFormatter = ({ content }: { content: string }) => {
   return (
-    <>
-      {parts.map((part, index) => {
-        if (!part) return null;
-        if (part.startsWith('$$') && part.endsWith('$$')) {
-          return <BlockMath key={index} math={part.slice(2, -2)} />;
-        } else if (part.startsWith('\\[') && part.endsWith('\\]')) {
-          return <BlockMath key={index} math={part.slice(2, -2)} />;
-        } else if (part.startsWith('\\(') && part.endsWith('\\)')) {
-          return <InlineMath key={index} math={part.slice(2, -2)} />;
-        } else if (part.startsWith('$') && part.endsWith('$')) {
-          return <InlineMath key={index} math={part.slice(1, -1)} />;
-        }
-        return <span key={index}>{part}</span>;
-      })}
-    </>
+    <div className="text-[15px] leading-relaxed whitespace-pre-wrap text-[#26215C] [&>p]:mb-3 [&>ul]:list-disc [&>ul]:ml-5 [&>ol]:list-decimal [&>ol]:ml-5 [&>*:last-child]:mb-0 [&>*:first-child]:mt-0">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   );
 };
 
